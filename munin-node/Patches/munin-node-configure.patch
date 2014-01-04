@@ -1,0 +1,8 @@
+--- a/node/sbin/munin-node-configure	2014-01-03 23:23:37.798734843 +0000
++++ b/node/sbin/munin-node-configure	2014-01-03 23:24:18.576779607 +0000
+@@ -1,4 +1,4 @@
+-#!/usr/bin/perl -w
++#!/usr/perl5/bin/perl -w
+ # -*- cperl -*-
+ #
+ # Copyright (C) 2003-2006 Jimmy Olsen, Nicolai Langfeldt.

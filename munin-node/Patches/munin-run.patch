@@ -1,0 +1,8 @@
+--- a/node/sbin/munin-run	2014-01-03 23:23:37.798734843 +0000
++++ b/node/sbin/munin-run	2014-01-03 23:24:18.576779607 +0000
+@@ -1,4 +1,4 @@
+-#!/usr/bin/perl -T
++#!/usr/perl5/bin/perl -T
+ # -*- perl -*-
+ #
+ # Copyright (C) 2004-2009

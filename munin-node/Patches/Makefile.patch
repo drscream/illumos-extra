@@ -1,0 +1,48 @@
+--- a/Makefile	2014-01-04 08:53:21.232538087 +0000
++++ b/Makefile	2014-01-04 08:53:53.357146096 +0000
+@@ -72,7 +72,6 @@
+ 	mkdir -p $(STATEDIR)
+ 	mkdir -p $(SPOOLDIR)
+ 	mkdir -p $(CONFDIR)
+-	$(CHOWN) $(USER) $(LOGDIR) $(STATEDIR) $(SPOOLDIR)
+ 
+ install-master-prime: $(INFILES_MASTER) install-pre install-master
+ 	mkdir -p $(CONFDIR)/templates
+@@ -88,12 +87,6 @@
+ 	mkdir -p $(DBDIR)/cgi-tmp
+ 	mkdir -p $(CGIDIR)
+ 
+-	$(CHOWN) $(USER) $(HTMLDIR) $(DBDIR)
+-	$(CHMOD) 0755 $(DBDIR)
+-
+-	$(CHOWN) $(CGIUSER) $(DBDIR)/cgi-tmp
+-	$(CHMOD) 0755 $(DBDIR)/cgi-tmp
+-
+ 	for p in master/www/*.tmpl ;  do \
+ 		$(INSTALL) -m 0644 "$$p" $(CONFDIR)/templates/ ; \
+ 	done
+@@ -144,7 +137,6 @@
+ 	mkdir -p $(LIBDIR)/plugins
+ 	mkdir -p $(PLUGSTATE)
+ 
+-	$(CHOWN) root:root $(PLUGSTATE)
+ 	$(CHMOD) 0755 $(PLUGSTATE)
+ 	$(CHMOD) 0755 $(CONFDIR)/plugin-conf.d
+ 
+@@ -213,7 +205,7 @@
+ # Dummy rule to enable parallel building
+ infiles: $(INFILES)
+ 
+-build: infiles build-master build-common-prime build-node build-plugins $(JAVA_BUILD) build-man substitue-confvar-inline
++build: infiles build-master build-common-prime build-node build-plugins $(JAVA_BUILD) build-man
+ 
+ build/%: %.in
+ 	@echo "$< -> $@"
+@@ -285,7 +277,6 @@
+              -e 's|@@BASH@@|$(BASH)|g'                          \
+              -e 's|@@HASSETR@@|$(HASSETR)|g'                    \
+              --in-place                                         \
+-             ./master/blib/libdoc/Munin::Master::HTMLOld.3pm    \
+              ./master/blib/lib/Munin/Master/HTMLOld.pm          \
+              ./node/blib/sbin/munin-node-configure              \
+              ./node/blib/sbin/munin-node                        \

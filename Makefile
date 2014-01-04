@@ -46,6 +46,7 @@ SUBDIRS = \
 	libxml \
 	libz \
 	make \
+	munin-node \
 	ncurses \
 	node.js \
 	nss-nspr \

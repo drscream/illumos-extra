@@ -1,0 +1,8 @@
+--- a/node/sbin/munin-sched	2014-01-03 23:23:37.798734843 +0000
++++ b/node/sbin/munin-sched	2014-01-03 23:24:18.576779607 +0000
+@@ -1,4 +1,4 @@
+-#!/usr/bin/perl -wT
++#!/usr/perl5/bin/perl -wT
+ # -*- cperl -*-
+ #
+ # Copyright (C) 2002-2010 Audun Ytterdal, Jimmy Olsen, Tore Anderson,
