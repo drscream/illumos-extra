@@ -193,6 +193,9 @@ f lib/amd64/libz.so.1 0755 root bin
 s usr/lib/amd64/libz.so.1=../../../lib/amd64/libz.so.1
 f lib/libz.so.1 0755 root bin
 s usr/lib/libz.so.1=../../lib/libz.so.1
+# nano
+f usr/bin/nano 0755 root bin
+f usr/share/man/man1/nano.1 0444 root bin
 # ncurses
 f usr/gnu/lib/amd64/libform.so.5.7 0755 root bin
 s usr/gnu/lib/amd64/libform.so.5=libform.so.5.7
