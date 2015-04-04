@@ -1,0 +1,11 @@
+--- nano-2.4.0.orig/src/text.c	2015-04-04 12:37:39.144447865 +0000
++++ nano-2.4.0/src/text.c	2015-04-04 12:40:00.317725823 +0000
+@@ -2664,7 +2664,7 @@
+     ssize_t current_y_save = openfile->current_y;
+     ssize_t lineno_save = openfile->current->lineno;
+     struct stat spellfileinfo;
+-    __time_t timestamp;
++    time_t timestamp;
+     pid_t pid_spell;
+     char *ptr;
+     static int arglen = 3;
