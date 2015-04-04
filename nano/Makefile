@@ -22,17 +22,16 @@
 #
 
 VER =	nano-2.4.0
+PATCHES =	Patches/*
 
 include ../Makefile.defs
 include ../Makefile.targ
 
-LDFLAGS = $(T32_LDFLAGS) -zassert-deflib
-
-all: all_autoconf
+all: all_autoconf_64
 
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
-	ginstall -m 0555 $(BASE)/$(VER.32)/src/nano $(DESTDIR)/usr/bin/nano
+	ginstall -m 0555 $(BASE)/$(VER.64)/src/nano $(DESTDIR)/usr/bin/nano
 	mkdir -p $(DESTDIR)/usr/share/man/man1
-	ginstall -m 0444 $(BASE)/$(VER.32)/doc/man/nano.1 \
+	ginstall -m 0444 $(BASE)/$(VER.64)/doc/man/nano.1 \
 	    $(DESTDIR)/usr/share/man/man1
