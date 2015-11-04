@@ -18,14 +18,21 @@
 #
 # CDDL HEADER END
 #
-# Copyright (c) 2012, Joyent, Inc.
+# Copyright 2015 Joyent, Inc.
 #
 # To build everything just run 'gmake' in this directory.
 #
 
 BASE =		$(PWD)
 DESTDIR =	$(BASE)/proto
-PATH =		$(DESTDIR)/usr/bin:/usr/bin:/usr/sbin:/sbin:/opt/local/bin
+
+ifeq ($(STRAP),strap)
+STRAPPROTO =	$(DESTDIR)
+else
+STRAPPROTO =	$(DESTDIR:proto=proto.strap)
+endif
+
+PATH =		$(STRAPPROTO)/usr/bin:/usr/bin:/usr/sbin:/sbin:/opt/local/bin
 SUBDIRS = \
 	bash \
 	bind \
@@ -42,7 +49,6 @@ SUBDIRS = \
 	less \
 	libexpat \
 	libidn \
-	libm \
 	libxml \
 	libz \
 	make \
@@ -55,6 +61,7 @@ SUBDIRS = \
 	openlldp \
 	openssl \
 	openssl1x \
+	openssh \
 	pbzip2 \
 	perl \
 	rsync \
@@ -64,14 +71,14 @@ SUBDIRS = \
 	tun \
 	uuid \
 	vim \
-	wget
+	wget \
+	xz
 
 STRAP_SUBDIRS = \
 	cpp \
 	bzip2 \
 	libexpat \
 	libidn \
-	libm \
 	libxml \
 	libz \
 	make \
@@ -100,15 +107,14 @@ strap: $(STRAP_SUBDIRS)
 
 curl: libz openssl1x libidn
 gzip: libz
-node.js: openssl1x libm
-ncurses: libm
+node.js: openssl1x
 dialog: ncurses
 socat: openssl1x
 wget: openssl1x libidn
 openldap: openssl1x
-libm: make
 g11n: make
-perl: libm
+ntp: perl openssl1x
+openssh: openssl1x
 
 #
 # pkg-config may be installed. This will actually only hurt us rather than help
@@ -136,13 +142,16 @@ $(SUBDIRS): $(DESTDIR)/usr/bin/gcc
 	(cd $@ && \
 	    PKG_CONFIG_LIBDIR="" \
 	    STRAP=$(STRAP) \
+	    CTFMERGE=$(CTFMERGE) \
+	    CTFCONVERT=$(CTFCONVERT) \
+	    ALTCTFCONVERT=$(ALTCTFCONVERT) \
 	    $(MAKE) DESTDIR=$(DESTDIR) install)
 
 install: $(SUBDIRS) gcc4 binutils
 
 install_strap: $(STRAP_SUBDIRS) gcc4 binutils
 
-clean: 
+clean:
 	-for dir in $(SUBDIRS) gcc4 binutils; \
 	    do (cd $$dir; $(MAKE) DESTDIR=$(DESTDIR) clean); done
 	-rm -rf proto
@@ -150,9 +159,12 @@ clean:
 manifest:
 	cp manifest $(DESTDIR)/$(DESTNAME)
 
+mancheck_conf:
+	cp mancheck.conf $(DESTDIR)/$(DESTNAME)
+
 tarball:
 	tar -zcf $(TARBALL) manifest proto
 
 FRC:
 
-.PHONY: manifest
+.PHONY: manifest mancheck_conf
