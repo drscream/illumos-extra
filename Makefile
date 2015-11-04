@@ -52,6 +52,7 @@ SUBDIRS = \
 	libxml \
 	libz \
 	make \
+	nano \
 	ncurses \
 	node.js \
 	nss-nspr \
