@@ -21,7 +21,7 @@
 # Copyright (c) 2012, Joyent, Inc.  All rights reserved.
 #
 
-VER =	nano-2.4.0
+VER =	nano-2.4.2
 PATCHES =	Patches/*
 
 include ../Makefile.defs
