@@ -22,7 +22,6 @@
 #
 
 VER =	nano-2.4.2
-PATCHES =	Patches/*
 
 include ../Makefile.defs
 include ../Makefile.targ
