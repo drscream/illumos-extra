@@ -21,7 +21,7 @@
 # Copyright (c) 2012, Joyent, Inc.  All rights reserved.
 #
 
-VER =	nano-2.4.2
+VER =	nano-2.5.3
 
 include ../Makefile.defs
 include ../Makefile.targ
