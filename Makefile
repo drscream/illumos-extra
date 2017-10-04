@@ -1,24 +1,18 @@
 #
-# CDDL HEADER START
+# This file and its contents are supplied under the terms of the
+# Common Development and Distribution License ("CDDL"), version 1.0.
+# You may only use this file in accordance with the terms of version
+# 1.0 of the CDDL.
 #
-# The contents of this file are subject to the terms of the
-# Common Development and Distribution License, Version 1.0 only
-# (the "License").  You may not use this file except in compliance
-# with the License.
+# A full copy of the text of the CDDL should have accompanied this
+# source.  A copy of the CDDL is also available via the Internet at
+# http://www.illumos.org/license/CDDL.
 #
-# You can obtain a copy of the license at COPYING
-# See the License for the specific language governing permissions
-# and limitations under the License.
+
 #
-# When distributing Covered Code, include this CDDL HEADER in each
-# file and include the License file at COPYING.
-# If applicable, add the following below this CDDL HEADER, with the
-# fields enclosed by brackets "[]" replaced with your own identifying
-# information: Portions Copyright [yyyy] [name of copyright owner]
+# Copyright (c) 2017, Joyent, Inc.
 #
-# CDDL HEADER END
-#
-# Copyright 2015 Joyent, Inc.
+
 #
 # To build everything just run 'gmake' in this directory.
 #
@@ -54,6 +48,7 @@ SUBDIRS = \
 	libz \
 	make \
 	nano \
+	mdb_v8 \
 	ncurses \
 	node.js \
 	nss-nspr \
@@ -102,6 +97,19 @@ GITDESCRIBE = \
 
 TARBALL =	$(NAME)-$(BRANCH)-$(TIMESTAMP)-$(GITDESCRIBE).tgz
 
+#
+# Some software (e.g., OpenSSL 0.9.8) is very particular about the Perl
+# interpreter used during the build.  This is the full path to the version
+# built during the strap build, which is safe to use on the build machine.
+#
+# This definition would perhaps more appropriately appear in "Makefile.defs",
+# but that file is not used in the OpenSSL 0.9.8 build and is also not included
+# by this file; absent deeper refactoring, we shall pass it via the environment
+# in the $(SUBDIRS) target below.
+#
+NATIVE_PERL =	$(STRAPPROTO)/usr/perl5/5.12/bin/perl
+
+
 all: $(SUBDIRS)
 
 strap: $(STRAP_SUBDIRS)
@@ -146,6 +154,7 @@ $(SUBDIRS): $(DESTDIR)/usr/bin/gcc
 	    CTFMERGE=$(CTFMERGE) \
 	    CTFCONVERT=$(CTFCONVERT) \
 	    ALTCTFCONVERT=$(ALTCTFCONVERT) \
+	    NATIVE_PERL=$(NATIVE_PERL) \
 	    $(MAKE) DESTDIR=$(DESTDIR) install)
 
 install: $(SUBDIRS) gcc4 binutils

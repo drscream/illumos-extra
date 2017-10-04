@@ -1,6 +1,6 @@
 /bash/bash-4.3.30-32
 /bind/bind-9.8.0-32
-/binutils/binutils-2.22-32*
+/binutils/binutils-2.25.1-32*
 /bzip2/bzip2-1.0.6*
 /bzip2/bzgrep.tmp
 /coreutils/coreutils-8.13-32
@@ -48,8 +48,8 @@
 /ntp/ntp-4.2.8p?-32
 /openldap/openldap-2.4.26-32
 /openlldp/openlldp-0.4alpha-32
-/openssl/openssl-0.9.8za
-/openssl/openssl-0.9.8za-64
+/openssl/openssl-0.9.8??
+/openssl/openssl-0.9.8??-64
 /openssl1x/openssl-1.0.1h-32*
 /openssl1x/openssl-1.0.1h-64*
 /pbzip2/pbzip2-1.1.6-32
